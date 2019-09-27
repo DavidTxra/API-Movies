@@ -4,10 +4,10 @@
 `$ npm start`
 
 ### Voir tous les films :
-`http://localhost:3000/items`
+http://localhost:3000/items
 
 ### Voir un film :
-`http://localhost:3000/item/id`
+http://localhost:3000/item/id
 
 ### Installer body parser :
 `$ npm install body-parser`
