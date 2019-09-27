@@ -6,7 +6,7 @@ const path = require('path')
 const filename = "movies/movies.txt";
 const message = "Chemin du fichier  : " + filename;
 
-let fichier = readFileSync(path.join("/data", "/movies.json"));
+let fichier = readFileSync(path.join(__dirname, "/data/movies.json"), 'utf8');
 let content = JSON.parse(fichier);
 
 writeFile(filename, content, (err) => {
