@@ -1,5 +1,8 @@
 const express = require('express');
 const server = express();
+var request = require('request');
+
+server.set('view engine', 'ejs');
 
 const body_parser = require('body-parser');
 
@@ -11,7 +14,7 @@ db.connect('./data', ['movies']);
 
 // add first movie
 if (!db.movies.find().length) {
-   const movie = { id: "tt0110357", name: "The Lion King", genre: "animation" };
+   const movie = { id: "tt0110357", name: "The Lion King", year: "2002" };
    db.movies.save(movie);
 }
 console.log(db.movies.find());
@@ -21,6 +24,17 @@ server.use(body_parser.json());
 
 server.get("/", (req, res) => {
    res.sendFile(__dirname + '/index.html');
+});
+
+server.get('/results', function(req, res){
+   var query = req.query.search;
+   var url = 'https://www.omdbapi.com/?s=' + query + '&apikey=d75f4b67';
+   request(url, function(error, response, body){
+       if(!error && response.statusCode == 200){
+           var data = JSON.parse(body)
+           res.render('results', {data: data});
+       }
+   });
 });
 
 server.get("/items", (req, res) => {
